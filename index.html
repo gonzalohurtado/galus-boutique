@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Galus Boutique — Vestidos y accesorios femeninos. Confección cuidada desde el sur de Chile. Despachos a todo Chile.">
+  <title>GALUS — Boutique Femenina · La Unión · Santiago</title>
+
+  <!-- ═══════════════════════════════════════════════
+       TIPOGRAFÍAS — Google Fonts
+       Reemplaza por las tuyas si tienes licencia propia.
+  ═══════════════════════════════════════════════ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       TOKENS — Variables globales de Galus Boutique
+       Cambia aquí para ajustar colores y tipografías.
+    ═══════════════════════════════════════════════ */
+    :root {
+      /* Paleta */
+      --galus-bg:       #FAFAF7;
+      --galus-bg-warm:  #F2EFE9;
+      --galus-bg-deep:  #ECE7DF;
+      --galus-whisper:  #FFFCF6;
+      --galus-ink:      #0E0E0E;
+      --galus-ink-soft: #1F1F1D;
+      --galus-mute:     #6B6760;
+      --galus-mute-2:   #9A968D;
+      --galus-line:     #E2DED3;
+      --galus-line-2:   #D4CEC2;
+      --galus-accent:   #2A2520;
+
+      /* Tipografías */
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-serif:   'Cormorant Garamond', Georgia, serif;
+      --font-sans:    'Manrope', 'Helvetica Neue', Arial, sans-serif;
+      --font-mono:    'DM Mono', ui-monospace, monospace;
+
+      /* Espaciado */
+      --px: 24px;       /* padding lateral mobile */
+      --px-md: 48px;    /* padding lateral tablet */
+      --px-lg: 64px;    /* padding lateral desktop */
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      color: var(--galus-ink);
+      background: var(--galus-whisper);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+
+    /* ═══════════════════════════════════════════════
+       COMPONENTES GLOBALES REUTILIZABLES
+    ═══════════════════════════════════════════════ */
+
+    /* Botones */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 28px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      border: 1px solid var(--galus-ink);
+      background: var(--galus-ink);
+      color: var(--galus-bg);
+      transition: background 0.25s, color 0.25s, transform 0.15s;
+      cursor: pointer;
+    }
+    .btn:hover { background: transparent; color: var(--galus-ink); }
+    .btn--ghost {
+      background: transparent;
+      color: var(--galus-ink);
+    }
+    .btn--ghost:hover { background: var(--galus-ink); color: var(--galus-bg); }
+    .btn--light {
+      background: var(--galus-whisper);
+      color: var(--galus-ink);
+      border-color: var(--galus-whisper);
+    }
+    .btn--light:hover { background: transparent; color: var(--galus-whisper); border-color: var(--galus-whisper); }
+
+    /* Eyebrow (etiqueta pequeña) */
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--galus-mute);
+    }
+
+    /* Placeholder de imagen (se reemplaza con <img> real) */
+    .ph {
+      position: relative;
+      background:
+        repeating-linear-gradient(135deg, #C9BBA3 0 1px, transparent 1px 14px),
+        linear-gradient(180deg, #D9CDB8 0%, #B8A98C 100%);
+      overflow: hidden;
+    }
+    .ph::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: 12px;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(20,18,14,0.5);
+    }
+    /* Para cuando uses una imagen real: añade clase .has-img y pon el src en el atributo data-src */
+    .ph.has-img::after { display: none; }
+
+    /* ═══════════════════════════════════════════════
+       1. BARRA PROMO SUPERIOR
+    ═══════════════════════════════════════════════ */
+    .promo-bar {
+      background: var(--galus-ink);
+      color: var(--galus-whisper);
+      text-align: center;
+      padding: 10px var(--px);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+    .promo-bar a { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ═══════════════════════════════════════════════
+       2. HEADER
+    ═══════════════════════════════════════════════ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--galus-whisper);
+      border-bottom: 1px solid var(--galus-line);
+    }
+    .header-inner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 20px;
+      padding: 20px var(--px);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Logo */
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 22px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* Nav desktop */
+    .main-nav {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+    }
+    .main-nav a {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--galus-mute);
+      transition: color 0.2s;
+    }
+    .main-nav a:hover { color: var(--galus-ink); }
+
+    /* Acciones header */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .header-actions a,
+    .header-actions button {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--galus-mute);
+      transition: color 0.2s;
+    }
+    .header-actions a:hover,
+    .header-actions button:hover { color: var(--galus-ink); }
+
+    /* Botón hamburguesa (móvil) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--galus-ink);
+      transition: all 0.3s;
+    }
+    .hamburger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.is-open span:nth-child(2) { opacity: 0; }
+    .hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Menú móvil */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--galus-whisper);
+      border-top: 1px solid var(--galus-line);
+      padding: 28px var(--px) 32px;
+      gap: 20px;
+    }
+    .mobile-menu.is-open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--galus-ink);
+    }
+    .mobile-menu .mobile-sep {
+      height: 1px;
+      background: var(--galus-line);
+    }
+    .mobile-menu .mobile-contact {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--galus-mute);
+    }
+
+    /* ═══════════════════════════════════════════════
+       3. HERO
+    ═══════════════════════════════════════════════ */
+    .hero {
+      padding: 0 var(--px) 64px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding-top: 32px;
+    }
+    .hero-img-wrap .ph {
+      aspect-ratio: 4/5;
+      width: 100%;
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--galus-mute);
+      margin-bottom: 20px;
+    }
+    .hero-h1 {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(52px, 10vw, 96px);
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      margin-bottom: 28px;
+    }
+    .hero-h1 em { font-style: italic; }
+    .hero-p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--galus-mute);
+      max-width: 440px;
+      margin-bottom: 36px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--galus-line);
+      max-width: 440px;
+    }
+    .meta-key {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--galus-mute);
+      margin-bottom: 5px;
+    }
+    .meta-val {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    /* ═══════════════════════════════════════════════
+       4. CATEGORÍAS
+    ═══════════════════════════════════════════════ */
+    .categories {
+      padding: 64px var(--px);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .section-head {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-head .eyebrow { margin-bottom: 12px; display: block; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .cats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .cat-card { cursor: pointer; }
+    .cat-card .ph { aspect-ratio: 1/1; margin-bottom: 12px; }
+    .cat-name {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0 2px;
+    }
+    .cat-name span:first-child {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .cat-name span:last-child {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--galus-mute);
+    }
+
+    /* ═══════════════════════════════════════════════
+       5. PRODUCTOS
+    ═══════════════════════════════════════════════ */
+    .products {
+      padding: 64px var(--px);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .products-head {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .products-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    /* Tabs filtro */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--galus-line);
+      overflow-x: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      padding: 10px 16px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--galus-mute);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .tab.is-active {
+      color: var(--galus-ink);
+      border-bottom-color: var(--galus-ink);
+    }
+    .tab:hover { color: var(--galus-ink); }
+
+    /* Grid de productos */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px 14px;
+    }
+    .product-card { cursor: pointer; }
+    .card-media {
+      aspect-ratio: 4/5;
+      position: relative;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .card-media .ph {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s ease;
+    }
+    .product-card:hover .card-media .ph { transform: scale(1.04); }
+    .card-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--galus-whisper);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+    }
+    .card-fav {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,252,246,0.9);
+      border-radius: 50%;
+      font-size: 14px;
+      transition: transform 0.2s;
+    }
+    .card-fav:hover { transform: scale(1.15); }
+    .card-fav.is-fav { color: #c0392b; }
+    .card-cat {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--galus-mute);
+      margin-bottom: 4px;
+    }
+    .card-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-price {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .card-price-old {
+      color: var(--galus-mute-2);
+      text-decoration: line-through;
+      margin-right: 6px;
+      font-weight: 400;
+      font-size: 12px;
+    }
+    .card-colors { display: flex; gap: 5px; }
+    .color-dot {
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      border: 1px solid var(--galus-line-2);
+    }
+
+    /* Ocultar productos filtrados */
+    .product-card[data-cat].is-hidden { display: none; }
+
+    .products-foot {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════════
+       6. BANNER EDITORIAL
+    ═══════════════════════════════════════════════ */
+    .banner-wrap {
+      padding: 0 var(--px);
+      max-width: 1400px;
+      margin: 0 auto 64px;
+    }
+    .banner {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) { .banner { aspect-ratio: 16/7; } }
+    .banner .ph {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+    }
+    .banner-card {
+      background: var(--galus-whisper);
+      padding: 32px 28px;
+      max-width: 340px;
+    }
+    .banner-card .eyebrow { margin-bottom: 12px; display: block; }
+    .banner-card h3 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    .banner-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--galus-mute);
+      margin-bottom: 20px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       7. LOOKBOOK
+    ═══════════════════════════════════════════════ */
+    .lookbook {
+      padding: 80px var(--px);
+      max-width: 1400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .lookbook-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1;
+      margin-bottom: 48px;
+    }
+    .lookbook-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .lookbook-item { position: relative; overflow: hidden; cursor: pointer; }
+    .lookbook-item .ph { aspect-ratio: 3/4; transition: transform 0.6s ease; }
+    .lookbook-item:hover .ph { transform: scale(1.04); }
+    .lookbook-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 32px 16px 16px;
+      background: linear-gradient(0deg, rgba(14,14,14,0.45) 0%, transparent 100%);
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 300;
+      color: #FFFCF6;
+      text-align: left;
+    }
+
+    /* ═══════════════════════════════════════════════
+       8. HISTORIA / SOBRE NOSOTROS
+    ═══════════════════════════════════════════════ */
+    .historia {
+      background: var(--galus-bg-warm);
+      padding: 80px var(--px);
+    }
+    .historia-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .historia .ph { aspect-ratio: 5/6; }
+    .historia .eyebrow { margin-bottom: 18px; display: block; }
+    .historia-h {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 22px;
+    }
+    .historia-p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--galus-ink-soft);
+      margin-bottom: 16px;
+      max-width: 520px;
+    }
+    .historia-cta { margin-top: 16px; }
+
+    /* ═══════════════════════════════════════════════
+       9. RESEÑAS
+    ═══════════════════════════════════════════════ */
+    .resenas {
+      padding: 80px var(--px);
+      max-width: 1400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .resenas-score {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6vw, 56px);
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .resenas-stars {
+      font-size: 13px;
+      letter-spacing: 0.32em;
+      color: var(--galus-mute);
+      margin-bottom: 48px;
+    }
+    .resenas-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      text-align: left;
+    }
+    .resena {
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--galus-line);
+    }
+    .resena-text {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 18px;
+      color: var(--galus-ink-soft);
+    }
+    .resena-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--galus-mute);
+    }
+    .resena-meta strong {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--galus-ink);
+      letter-spacing: 0.1em;
+    }
+
+    /* ═══════════════════════════════════════════════
+       10. NEWSLETTER
+    ═══════════════════════════════════════════════ */
+    .newsletter {
+      padding: 64px var(--px);
+      max-width: 1400px;
+      margin: 0 auto;
+      border-top: 1px solid var(--galus-line);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .newsletter h3 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .newsletter p {
+      font-size: 14px;
+      color: var(--galus-mute);
+      line-height: 1.7;
+    }
+    .newsletter-form {
+      display: flex;
+      border: 1px solid var(--galus-ink);
+    }
+    .newsletter-form input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: 0;
+      padding: 14px 16px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--galus-ink);
+      outline: none;
+    }
+    .newsletter-form input::placeholder { color: var(--galus-mute-2); }
+    .newsletter-form button {
+      background: var(--galus-ink);
+      color: var(--galus-bg);
+      padding: 0 20px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .newsletter-form button:hover { background: var(--galus-accent); }
+    .newsletter-msg {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--galus-mute);
+      margin-top: 8px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       11. FOOTER
+    ═══════════════════════════════════════════════ */
+    .site-footer {
+      padding: 48px var(--px) 28px;
+      border-top: 1px solid var(--galus-line);
+      background: var(--galus-whisper);
+    }
+    .footer-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px;
+      margin-bottom: 40px;
+    }
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      margin-bottom: 12px;
+    }
+    .footer-brand-tag {
+      font-size: 13px;
+      color: var(--galus-mute);
+      line-height: 1.7;
+      max-width: 240px;
+    }
+    .footer-col-h {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--galus-mute);
+      margin-bottom: 14px;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+    }
+    .footer-links a:hover { color: var(--galus-mute); }
+    .footer-links li { font-size: 13px; color: var(--galus-mute); }
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 20px;
+      border-top: 1px solid var(--galus-line);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--galus-mute);
+    }
+
+    /* ═══════════════════════════════════════════════
+       12. BOTÓN WHATSAPP FLOTANTE
+    ═══════════════════════════════════════════════ */
+    .wa-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      background: var(--galus-ink);
+      color: var(--galus-whisper);
+      padding: 13px 20px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--galus-ink);
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 4px 20px rgba(14,14,14,0.18);
+    }
+    .wa-btn:hover { background: transparent; color: var(--galus-ink); }
+    .wa-dot {
+      width: 7px; height: 7px;
+      background: #4DD16E;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ═════════════════════════════════�)Y �$U5��4�dR(	BDU4�D��(�R#G���)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y)Y���VF��֖��v�GF��#G�����&��B�����f"������r��Р���VFW"���VFW"֖��W"��w&�B�FV��FR�6��V��3�WF�g"WF�Т��'W&vW"�F�7������S�Т������b�F�7���f�W��Р���W&����W&��w&�B��w&�B�FV��FR�6��V��3�g"g#��v�Sg���Ɩv�֗FV�3�7G&WF6���Т�W&��FW�B�FF��r��VgC�3'��Р����7F�&���憗7F�&�֖��W"�w&�B�FV��FR�6��V��3�g"�g#�Р���Ww6�WGFW"����Ww6�WGFW"�w&�B�FV��FR�6��V��3�g"g#�Р��f��FW"���f��FW"�w&�B�w&�B�FV��FR�6��V��3��Vg"g"g"g"g#�Т�f��FW"�&�GF���f�W��F�&V7F���&�s��W7F�g��6��FV�C�76R�&WGvVV�Р��&�GV7F�2g); }
+
+      /* Header */
+      .header-inner {
+        grid-template-columns: auto 1fr auto;
+      }
+      .hamburger { display: none; }
+      .main-nav { display: flex; }
+
+      /* Hero */
+      .hero-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+        align-items: stretch;
+      }
+      .hero-text { padding-left: 32px; }
+
+      /* Historia */
+      .historia-inner { grid-template-columns: 1fr 1.1fr; }
+
+      /* Newsletter */
+      .newsletter { grid-template-columns: 1fr 1fr; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; }
+      .footer-bottom { flex-direction: row; justify-content: space-between; }
+
+      /* Productos */
+      .products-grid { grid-template-columns: repeat(4, 1fr); }
+      .products-head { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE — MOBILE NAV
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 1023px) {
+      .main-nav { display: none; }
+      .hamburger { display: flex; }
+      .header-inner { grid-template-columns: auto 1fr auto; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       ANIMACIONES SUTILES
+    ═══════════════════════════════════════════════ */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .fade-in.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       1. BARRA PROMO
+  ═══════════════════════════════════════════════ -->
+  <div class="promo-bar">
+    Despachos a todo Chile &nbsp;·&nbsp; La Unión &amp; Santiago &nbsp;·&nbsp;
+    <a href="https://wa.me/56900000000" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       2. HEADER
+  ═══════════════════════════════════════════════ -->
+  <header class="site-header" id="top">
+    <div class="header-inner">
+
+      <!-- Hamburger (móvil) -->
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Logo (centro en móvil) -->
+      <a href="#top" class="logo" style="text-align:center;">GALUS</a>
+
+      <!-- Nav desktop -->
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="#novedades">Novedades</a>
+        <a href="#vestidos">Vestidos</a>
+        <a href="#accesorios">Accesorios</a>
+        <a href="#lookbook">Lookbook</a>
+        <a href="#historia">Historia</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <!-- Acciones -->
+      <div class="header-actions">
+        <a href="https://wa.me/56900000000" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </a>
+        <a href="https://instagram.com/galus.boutique" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Menú móvil -->
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Menú móvil">
+      <a href="#novedades" class="mobile-link">Novedades</a>
+      <a href="#vestidos" class="mobile-link">Vestidos</a>
+      <a href="#accesorios" class="mobile-link">Accesorios</a>
+      <a href="#lookbook" class="mobile-link">Lookbook</a>
+      <a href="#historia" class="mobile-link">Historia</a>
+      <a href="#contacto" class="mobile-link">Contacto</a>
+      <div class="mobile-sep"></div>
+      <span class="mobile-contact">WhatsApp: +56 9 XXXX XXXX</span>
+    </nav>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       3. HERO
+  ═══════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-grid">
+
+      <!-- Imagen principal (reemplaza el div .ph por <img src="tu-foto.jpg" alt="..."> cuando tengas fotos) -->
+      <div class="hero-img-wrap">
+        <div class="ph" data-label="Foto principal · vestido hero"></div>
+      </div>
+
+      <div class="hero-text fade-in">
+        <p class="hero-eyebrow">Edición Otoño · 2026</p>
+        <h1 class="hero-h1">Vestidos hechos<br>para <em>quedarse</em>.</h1>
+        <p class="hero-p">
+          Pequeñas tiradas, telas elegidas a mano y confección local.
+          Pensados para usarse hoy, mañana y dentro de cinco años.
+        </p>
+        <div class="hero-ctas">
+          <a href="#novedades" class="btn">Comprar ahora</a>
+          <a href="#lookbook" class="btn btn--ghost">Ver lookbook</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <div class="meta-key">Confección</div>
+            <div class="meta-val">La Unión</div>
+          </div>
+          <div>
+            <div class="meta-key">Despachos</div>
+            <div class="meta-val">Todo Chile</div>
+          </div>
+          <div>
+            <div class="meta-key">Cambios</div>
+            <div class="meta-val">Hasta 30 días</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       4. CATEGORÍAS
+  ═══════════════════════════════════════════════ -->
+  <section class="categories" id="tienda">
+    <div class="section-head fade-in">
+      <span class="eyebrow">Cápsulas</span>
+      <h2 class="section-title">Categorías</h2>
+    </div>
+    <div class="cats-grid">
+      <a href="#vestidos" class="cat-card fade-in">
+        <div class="ph" data-label="Vestidos Largos"></div>
+        <div class="cat-name"><span>Vestidos Largos</span><span>18</span></div>
+      </a>
+      <a href="#vestidos" class="cat-card fade-in">
+        <div class="ph" data-label="Vestidos Cortos"></div>
+        <div class="cat-name"><span>Vestidos Cortos</span><span>24</span></div>
+      </a>
+      <a href="#accesorios" class="cat-card fade-in">
+        <div class="ph" data-label="Bolsos"></div>
+        <div class="cat-name"><span>Bolsos</span><span>12</span></div>
+      </a>
+      <a href="#accesorios" class="cat-card fade-in">
+        <div class="ph" data-label="Joyería"></div>
+        <div class="cat-name"><span>Joyería</span><span>32</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       5. PRODUCTOS
+  ═══════════════════════════════════════════════ -->
+  <section class="products" id="novedades">
+    <div class="products-head">
+      <h2 class="products-title fade-in">Novedades</h2>
+      <div class="tabs" role="tablist">
+        <button class="tab is-active" data-filter="todos" role="tab" aria-selected="true">Todos</button>
+        <button class="tab" data-filter="Vestidos Largos,Vestidos Cortos" role="tab">Vestidos</button>
+        <button class="tab" data-filter="Bolsos,Joyería" role="tab">Accesorios</button>
+        <button class="tab" data-filter="mas-vendido" role="tab">Más vendidos</button>
+      </div>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+
+      <!-- PRODUCTO 1 -->
+      <article class="product-card fade-in" data-cat="Vestidos Largos" id="vestidos">
+        <div class="card-media">
+          <div class="ph" data-label="Vestido Lirio · crema"></div>
+          <span class="card-tag">Nuevo</span>
+          <button class="card-fav" aria-label="Favorito">♡</button>
+        </div>
+        <div class="card-cat">Vestidos Largos</div>
+        <div class="card-name">Vestido Lirio</div>
+        <div class="card-bottom">
+          <div class="card-price">$48.990</div>
+          <div class="card-colors">
+            <div class="color-dot" style="background:#E8DDC8" title="Crema"></div>
+            <div class="color-dot" style="background:#1A1815" title="Negro"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCTO 2 (mas-vendido) -->
+      <article class="product-card fade-in" data-cat="Vestidos Cortos mas-vendido">
+        <div class="card-media">
+          <div class="ph" data-label="Vestido Mira · negro"></div>
+          <span class="card-tag">Más vendido</span>
+          <button class="card-fav" aria-label="Favorito">♡</button>
+        </div>
+        <div class="card-cat">Vestidos Cortos</div>
+        <div class="card-name">Vestido Mira</div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <span class="card-price-old">$39.990</span>$32.990
+          </div>
+          <div class="card-colors">
+            <div class="color-dot" style="background:#1A1815" title="Negro"></div>
+            <div class="color-dot" style="background:#5C1F2A" title="Vino"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCTO 3 -->
+      <article class="product-card fade-in" data-cat="Bolsos" id="accesorios">
+        <div class="card-media">
+          <div class="ph" data-label="Bolso Una · cuero"></div>
+          <button class="card-fav" aria-label="Favorito">♡</button>
+        </div>
+        <div class="card-cat">Bolsos</div>
+        <div class="card-name">Bolso Una</div>
+        <div class="card-bottom">
+          <div class="card-price">$64.990</div>
+          <div class="card-colors">
+            <div class="color-dot" style="background:#8B5A3C" title="Coñac"></div>
+            <div class="color-dot" style="background:#1A1815" title="Negro"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCTO 4 -->
+      <article class="product-card fade-in" data-cat="Joyería">
+        <div class="card-media">
+          <div class="ph" data-label="Aros Domo · dorado"></div>
+          <button class="card-fav" aria-label="Favorito">♡</button>
+        </div>
+        <div class="card-cat">Joyería</div>
+        <div class="card-name">Aros Domo</div>
+        <div class="card-bottom">
+          <div class="card-price">$18.990</div>
+          <div class="card-colors">
+            <div class="color-dot" style="background:#C9A961" title="Dorado"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCTO 5 -->
+      <article class="product-card fade-in" data-cat="Vestidos Largos">
+        <div class="card-media">
+          <div class="ph" data-label="Vestido Sara · oliva"></div>
+          <span class="card-tag">Ed. limitada</span>
+          <button class="card-fav" aria-label="Favorito">♡</button>
+        </div>
+        <div class="card-cat">Vestidos Largos</div>
+        <div class="card-name">Vestido Sara</div>
+        <div class="card-bottom">
+          <div class="card-price">$56.990</div>
+          <div class="card-colors">
+            <div class="color-dot" style="background:#6B7050" title="Verde Oliva"></div>
+            <div class="color-dot" style="background:#E8DDC8" title="Crema"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCTO 6 -->
+      <article class="product-card fade-in" data-cat="Joyería">
+        <div class="card-media">
+          <div class="ph" data-label="Collar Hilo · plata"></div>
+          <button class="card-fav" aria-label="Favorito">♡</button>
+        </div>
+        <div class="card-cat">Joyería</div>
+        <div class="card-name">Collar Hilo</div>
+        <div class="card-bottom">
+          <div class="card-price">$24.990</div>
+          <div class="card-colors">
+            <div class="color-dot" style="background:#C8C8CA" title="Plata"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCTO 7 -->
+      <article class="product-card fade-in" data-cat="Vestidos Cortos">
+        <div class="card-media">
+          <div class="ph" data-label="Vestido Olas · azul"></div>
+          <button class="card-fav" aria-label="Favorito">♡</button>
+        </div>
+        <div class="card-cat">Vestidos Cortos</div>
+        <div class="card-name">Vestido Olas</div>
+        <div class="card-bottom">
+          <div class="card-price">$38.990</div>
+          <div class="card-colors">
+            <div class="color-dot" style="background:#7A8A95" title="Azul humo"></div>
+            <div class="color-dot" style="background:#E8DD�8" title="Crema"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRODUCTO 8 -->
+      <article class="product-card fade-in" data-cat="Bolsos">
+        <div class="card-media">
+          <div class="ph" data-label="Bolso Mar · mano"></div>
+          <span class="card-tag">Nuevo</span>
+          <button class="card-fav" aria-label="Favorito">♡</button>
+        </div>
+        <div class="card-cat">Bolsos</div>
+        <div class="card-name">Bolso Mar</div>
+        <div class="card-bottom">
+          <div class="card-price">$79.990</div>
+          <div class="card-colors">
+            <div class="color-dot" style="background:#E8DDC8" title="Crema"></div>
+            <div class="color-dot" style="background:#1A1815" title="Negro"></div>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /products-grid -->
+
+    <div class="products-foot">
+      <a href="https://wa.me/56900000000?text=Hola%20Galus%2C%20quiero%20ver%20el%20catálogo%20completo" target="_blank" rel="noopener" class="btn btn--ghost">Ver toda la tienda →</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       6. BANNER EDITORIAL
+  ═══════════════════════════════════════════════ -->
+  <div class="banner-wrap">
+    <div class="banner">
+      <div class="ph" data-label="Foto editorial · cápsula otoño"></div>
+      <div class="banner-overlay">
+        <div class="banner-card">
+          <span class="eyebrow">Cápsula 03</span>
+          <h3>Otoño en<br>el sur.</h3>
+          <p>Ocho piezas inspiradas en la luz baja y los bosques de La Unión.</p>
+          <a href="https://wa.me/56900000000?text=Hola%20Galus%2C%20me%20interesa%20la%20cápsula%20Otoño" target="_blank" rel="noopener" class="btn">Explorar cápsula</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       7. LOOKBOOK
+  ═══════════════════════════════════════════════ -->
+  <section class="lookbook" id="lookbook">
+    <span class="eyebrow" style="display:block;margin-bottom:12px">Lookbook</span>
+    <h2 class="lookbook-title">Para mirar antes de vestir.</h2>
+    <div class="lookbook-grid">
+      <div class="lookbook-item fade-in">
+        <div class="ph" data-label="Editorial · bosque otoñal"></div>
+        <div class="lookbook-caption">Otoño en el sur</div>
+      </div>
+      <div class="lookbook-item fade-in">
+        <div class="ph" data-label="Editorial · ciudad"></div>
+        <div class="lookbook-caption">Tarde en Vitacura</div>
+      </div>
+      <div class="lookbook-item fade-in">
+        <div class="ph" data-label="Editorial · campo"></div>
+        <div class="lookbook-caption">Domingo de campo</div>
+      </div>
+      <div class="lookbook-item fade-in">
+        <div class="ph" data-label="Editorial · noche"></div>
+        <div class="lookbook-caption">Después de las 7</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       8. HISTORIA
+  ═══════════════════════════════════════════════ -->
+  <section class="historia" id="historia">
+    <div class="historia-inner">
+      <div class="ph" data-label="Atelier · La Unión"></div>
+      <div class="fade-in">
+        <span class="eyebrow">Sobre Galus</span>
+        <h2 class="historia-h">Una boutique<br>desde el sur.</h2>
+        <p class="historia-p">
+          Galus nace en La Unión, donde la luz se filtra entre los robles y la lluvia
+          dicta el ritmo de los días. Diseñamos pensando en mujeres que quieren prendas
+          que duren: telas naturales, cortes precisos y confección de taller.
+        </p>
+        <p class="historia-p">
+          Hoy operamos también desde Santiago, con despachos a todo Chile y atención
+          personalizada por WhatsApp.
+        </p>
+        <div class="historia-cta">
+          <a href="https://wa.me/56900000000?text=Hola%20Galus%2C%20quiero%20saber%20más" target="_blank" rel="noopener" class="btn btn--ghost">Conocer más</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       9. RESEÑAS
+  ═══════════════════════════════════════════════ -->
+  <section class="resenas">
+    <div class="resenas-score">4.9 / 5.0</div>
+    <div class="resenas-stars">★★★★★ &nbsp;·&nbsp; 124 reseñas verificadas</div>
+    <div class="resenas-grid">
+      <div class="resena fade-in">
+        <p class="resena-text">"La calidad es increíble. Pedí un vestido y llegó perfecto, además la atención por WhatsApp fue cercana y rápida."</p>
+        <div class="resena-meta"><strong>Camila R.</strong><span>Santiago</span></div>
+      </div>
+      <div class="resena fade-in">
+        <p class="resena-text">"Encontré el vestido para el matrimonio de mi hermana. Recibí mil halagos y el calce es de boutique de verdad."</p>
+        <div class="resena-meta"><strong>Francisca T.</strong><span>La Unión</span></div>
+      </div>
+      <div class="resena fade-in">
+        <p class="resena-text">"Los accesorios son una joya. Compré aros y collar y combinan con todo, además vienen en empaque hermoso."</p>
+        <div class="resena-meta"><strong>Antonia M.</strong><span>Valdivia</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       10. NEWSLETTER
+  ═══════════════════════════════════════════════ -->
+  <section class="newsletter">
+    <div>
+      <h3>Únete a nuestra lista.</h3>
+      <p>Lanzamientos y lookbooks una vez cada quince días, no más.</p>
+    </div>
+    <div>
+      <form class="newsletter-form" id="newsletterForm" novalidate>
+        <input type="email" id="newsletterEmail" placeholder="tu@correo.cl" autocomplete="email" required>
+        <button type="submit">Suscribirme</button>
+      </form>
+      <p class="newsletter-msg" id="newsletterMsg"></p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       11. FOOTER
+  ═══════════════════════════════════════════════ -->
+  <footer class="site-footer" id="contacto">
+    <div class="footer-grid">
+
+      <!-- Marca -->
+      <div>
+        <div class="footer-brand-name">GALUS</div>
+        <p class="footer-brand-tag">Vestidos y accesorios femeninos. Confección cuidada desde el sur de Chile.</p>
+      </div>
+
+      <!-- Tienda -->
+      <div>
+        <h4 class="footer-col-h">Tienda</h4>
+        <ul class="footer-links">
+          <li><a href="#vestidos">Vestidos</a></li>
+          <li><a href="#accesorios">Accesorios</a></li>
+          <li><a href="#novedades">Novedades</a></li>
+          <li><a href="#lookbook">Lookbook</a></li>
+        </ul>
+      </div>
+
+      <!-- Ayuda -->
+      <div>
+        <h4 class="footer-col-h">Ayuda</h4>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/56900000000?text=Hola%2C%20consulta%20sobre%20tallas" target="_blank" rel="noopener">Guía de tallas</a></li>
+          <li><a href="https://wa.me/56900000000?text=Consulta%20sobre%20despachos" target="_blank" rel="noopener">Despachos</a></li>
+          <li><a href="https://wa.me/56900000000?text=Consulta%20sobre%20cambios" target="_blank" rel="noopener">Cambios</a></li>
+          <li><a href="https://wa.me/56900000000" target="_blank" rel="noopener">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+
+      <!-- Contacto -->
+      <div>
+        <h4 class="footer-col-h">Contacto</h4>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/56900000000" target="_blank" rel="noopener">+56 9 XXXX XXXX</a></li>
+          <li><a href="https://instagram.com/galus.boutique" target="_blank" rel="noopener">@galus.boutique</a></li>
+          <li>La Unión · Santiago</li>
+        </ul>
+      </div>
+
+      <!-- Pago -->
+      <div>
+        <h4 class="footer-col-h">Medios de pago</h4>
+        <ul class="footer-links">
+          <li>WebPay</li>
+          <li>Transferencia</li>
+          <li>Mercado Pago</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Galus Boutique · galus.cl</span>
+      <span>Hecho con cariño en Chile 🇨🇱</span>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════
+       BOTÓN WHATSAPP FLOTANTE
+  ═══════════════════════════════════════════════ -->
+  <a href="https://wa.me/56900000000?text=Hola%20Galus%2C%20quiero%20consultar%20sobre%20sus%20productos" target="_blank" rel="noopener" class="wa-btn" aria-label="Contactar por WhatsApp">
+    <span class="wa-dot"></span>
+    WhatsApp
+  </a>
+
+  <!-- ═══════════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════════ -->
+  <script>
+    // ─── HAMBURGER MENU ────────────────────────────
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu   = document.getElementById('mobileMenu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('is-open');
+      hamburgerBtn.classList.toggle('is-open', isOpen);
+      hamburgerBtn.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('is-open');
+        hamburgerBtn.classList.remove('is-open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ─── FILTRO DE PRODUCTOS (TABS) ────────────────
+    const tabs    = document.querySelectorAll('.tab');
+    const cards   = document.querySelectorAll('.product-card');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Activar tab
+        tabs.forEach(t => { t.classList.remove('is-active'); t.setAttribute('aria-selected','false'); });
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected','true');
+
+        const filter = tab.dataset.filter;
+
+        cards.forEach(card => {
+          const cats = card.dataset.cat || '';
+          if (filter === 'todos') {
+            card.classList.remove('is-hidden');
+          } else {
+            // El filtro puede ser una lista separada por coma
+            const filterTerms = filter.split(',');
+            const matches = filterTerms.some(term => cats.includes(term.trim()));
+            card.classList.toggle('is-hidden', !matches);
+          }
+        });
+      });
+    });
+
+    // ─── FAVORITOS ─────────────────────────────────
+    document.querySelectorAll('.card-fav').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        btn.classList.toggle('is-fav');
+        btn.textContent = btn.classList.contains('is-fav') ? '♥' : '♡';
+      });
+    });
+
+    // ─── BOTÓN COMPRAR (click en tarjeta → WhatsApp) ──
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.card-fav')) return;
+        const name  = card.querySelector('.card-name')?.textContent || '';
+        const price = card.querySelector('.card-price')?.textContent?.replace(/[^0-9.$]/g, '') || '';
+        const msg   = `Hola Galus 👋, me interesa el ${name} (${price}). ¿Está disponible?`;
+        window.open(`https://wa.me/56900000000?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+      });
+    });
+
+    // ─── NEWSLETTER ────────────────────────────────
+    const form = document.getElementById('newsletterForm');
+    const msg  = document.getElementById('newsletterMsg');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('newsletterEmail').value.trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          msg.textContent = 'Por favor ingresa un correo válido.';
+          return;
+        }
+        msg.textContent = '¡Gracias! Te avisaremos con los próximos lanzamientos.';
+        form.reset();
+        // Aquí puedes conectar con Mailchimp, ConvertKit, etc.
+        // fetch('/api/subscribe', { method:'POST', body: JSON.stringify({ email }) })
+      });
+    }
+
+    // ─── ANIMACIONES SCROLL (fade-in) ─────────────
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    } else {
+      // Fallback: mostrar todo sin animación
+      document.querySelectorAll('.fade-in').forEach(el => el.classList.add('is-visible'));
+    }
+
+  </script>
+
+</body>
+</html>
